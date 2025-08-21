@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+    <link rel="stylesheet" href="/output.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        @import url('https://fonts.cdnfonts.com/css/dm-serif-display');
+        @import url('https://fonts.cdnfonts.com/css/br-sonoma');
+
+        .nav-btn,
+        .nav-head {
+            font-family: 'BR Sonoma', sans-serif;
+        }
+
+        .top-div h1 {
+            font-family: 'DM Serif Display', serif;
+        }
+
+        .top-div p {
+            font-family: 'BR Sonoma', sans-serif;
+        }
+        :root {
+            --swiper-navigation-color: #ffcc00; /* change to your color */
+        }
+    </style>
+    <!-- remix icon cdn here -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- font link -->
+    <link href="https://fonts.cdnfonts.com/css/minimo" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+<body>
+    <div class="menu h-[100vh] fixed left-0 top-0 z-[9999] bg-black w-full hidden justify-around text-white ">
+        <div class="flex flex-col gap-6 justify-around h-[100%]">
+            <i class="close-icon cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24">
+                    <path fill="#fff"
+                        d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z" />
+                </svg>
+            </i>
+
+            <div class="flex flex-col gap-4 mt-10 text-2xl">
+                <a class="text-[#D1CEB2]" href="#">Home</a>
+                <a href="#">Accessories</a>
+                <a href="#">Support</a>
+                <a href="#">Gallery</a>
+
+            </div>
+
+            <h1 class="text-5xl">Designed to be loved.</h1>
+        </div>
+
+        <div>
+            <img src="pictures/photo.jpg" class="w-[100%] h-full" alt="photo">
+        </div>
+
+    </div>
+
+    <div class="Navbar sticky h-[5rem] flex items-center justify-between bg-black z-[2]">
+        <i class="menu-icon ri-menu-2-line Menu w-[40px] cursor-pointer text-3xl text-white relative left-[25px]"></i>
+        <h1 class="nav-head text-white text-4xl font-poppins -tracking-tighter">iPhone</h1>
+        <div class="relative right-[2rem] justify-center flex gap-3">
+            <button class="nav-btn bg-[#B0B0B0] border-white text-black p-1 w-[5rem] h-[30px] rounded-[5px]">Log
+                in</button>
+            <button class="nav-btn bg-[#B0B0B0] border-white text-black p-1 w-[5rem] h-[30px] rounded-[5px]">Sign
+                up</button>
+        </div>
+    </div>
+
+    <div class="w-full bg-zinc-900">
+        <div class="parent relative top-0 left-0 w-full h-[700vh] z-[1]">
+            <div class="w-full sticky top-0 left-0 h-screen">
+                <canvas class="w-full h-screen bg-black" id="canvas"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="bg-black h-screen text-white flex items-center justify-around">
+        <div>
+            <img src="pictures/iphone.jpg" alt="">
+        </div>
+        <div class="top-div flex flex-col gap-[2rem]">
+            <div>
+                <h1 class="text-[27px]">Introducing the Future of Smart Design</h1>
+                <p class="text-[14px] opacity-50">Unmatched Precision. Ultimate Control.</p>
+            </div>
+            <div>
+                <p class="text-[20px] w-[859px]">Experience our newest model, built for those who demand perfection in
+                    every tap, swipe, and scroll.
+                </p>
+            </div>
+            <div class="text-white flex flex-col gap-[1rem]">
+                <div class="flex flex-row gap-1">
+                    <i class="ri-arrow-right-line"></i>
+                    <p>Performance-first Engineering - Lightning-fast response times.</p>
+                </div>
+                <div class="flex flex-row gap-1">
+                    <i class="ri-arrow-right-line"></i>
+                    <p>Security at Core - Your data, safeguarded with next-gen encryption.</p>
+                </div>
+                <div class="flex flex-row gap-1">
+                    <i class="ri-arrow-right-line"></i>
+                    <p>All-Day Battery - Stay powered through everything.</p>
+                </div>
+            </div>
+            <div>
+                <p><span class="italic text-[#CDCCAB]">Redefining elegance</span>. Designed to captivate from every
+                    angle</p>
+            </div>
+            <div>
+                <img src="pictures/qoute.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="swiper mySwiper w-full h-screen bg-black text-white">
+        <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide flex items-center justify-center">
+                <div class="w-[300px] h-[500px] rounded-2xl bg-[#222] p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm opacity-70">Apple Intelligence</h3>
+                        <h1 class="text-2xl font-bold">AI-opening possibilities.</h1>
+                    </div>
+                    <img src="pictures/img-5.jpg" class="w-full rounded-xl" alt="">
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="swiper-slide flex items-center justify-center">
+                <div class="w-[600px] h-[500px] rounded-2xl bg-[#222] p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm opacity-70">Cutting-Edge Cameras</h3>
+                        <h1 class="text-2xl font-bold">Picture your best photos and videos.</h1>
+                    </div>
+                    <img src="pictures/img-2.jpg" class="w-full rounded-xl" alt="">
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="swiper-slide flex items-center justify-center">
+                <div class="w-[300px] h-[500px] rounded-2xl bg-[#333] p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm opacity-70">Chip and Battery Life</h3>
+                        <h1 class="text-2xl font-bold">Fast that lasts.</h1>
+                    </div>
+                    <img src="pictures/img-3.jpg" class="w-full rounded-xl" alt="">
+                </div>
+            </div>
+            <div class="swiper-slide flex items-center justify-center">
+                <div class="w-[300px] h-[500px] rounded-2xl bg-[#333] p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm opacity-70">Chip and Battery Life</h3>
+                        <h1 class="text-2xl font-bold">Fast that lasts.</h1>
+                    </div>
+                    <img src="pictures/img-4.jpg" class="w-full rounded-xl" alt="">
+                </div>
+            </div>
+            <div class="swiper-slide flex items-center justify-center">
+                <div class="w-[300px] h-[500px] rounded-2xl bg-[#333] p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm opacity-70">Chip and Battery Life</h3>
+                        <h1 class="text-2xl font-bold">Fast that lasts.</h1>
+                    </div>
+                    <img src="pictures/img-5.jpg" class="w-full rounded-xl" alt="">
+                </div>
+            </div>
+            <div class="swiper-slide flex items-center justify-center">
+                <div class="w-[300px] h-[500px] rounded-2xl bg-[#333] p-6 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm opacity-70">Chip and Battery Life</h3>
+                        <h1 class="text-2xl font-bold">Fast that lasts.</h1>
+                    </div>
+                    <img src="pictures/img-6.jpg" class="w-full rounded-xl" alt="">
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination + Arrows -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+
+
+    <!-- Manish Get to know iPhone cards -->
+    <div class="bg-black h-screen text-white flex items-center justify-around">
+    <div class="flex flex-col w-full">
+        <div class="text-2xl font-semibold p-5">Get to know iPhone.</div>
+    
+        <div class="flex gap-5 overflow-x-auto px-5 pb-5 flex-nowrap md:flex-wrap">
+          
+          <!-- Card 1 -->
+          <div class="flex-shrink-0 w-[340px] h-[560px] bg-white rounded-2xl shadow-md relative flex flex-col justify-start p-5">
+            <h4 class="text-gray-600 text-base font-medium">Apple Intelligence</h4>
+            <p class="text-xl font-semibold my-2">AI-opening possibilities.</p>
+            <img class="w-full rounded-xl mt-auto" src="../pictures/iphone.jpg" alt="AI">
+            <div class="absolute bottom-5 right-5 text-white bg-black/60 w-11 h-11 rounded-full flex items-center justify-center text-2xl cursor-pointer group-hover:bottom-0 z-10">+</div>
+            <div class="absolute left-0 right-0 bottom-[-100%] h-[40%] bg-gray-500/75 text-white p-5 text-center text-sm transition-all duration-300 group-hover:bottom-0">
+              Explore new AI features in iPhone.
+            </div>
+          </div>
+    
+          <!-- Card 2 -->
+          <div class="flex-shrink-0 w-[340px] h-[560px] bg-white rounded-2xl shadow-md relative flex flex-col justify-start p-5">
+            <h4 class="text-gray-600 text-base font-medium">Cutting-Edge Cameras</h4>
+            <p class="text-xl font-semibold my-2">Picture your best photos.</p>
+            <img class="w-full rounded-xl mt-auto" src="../pictures/iphone.jpg" alt="Camera">
+            <div class="absolute bottom-5 right-5 text-white bg-black/60 w-11 h-11 rounded-full flex items-center justify-center text-2xl cursor-pointer">+</div>
+            <div class="absolute left-0 right-0 bottom-[-100%] h-[40%] bg-gray-500/75 text-white p-5 text-center text-sm transition-all duration-300 hover:bottom-0">
+              Capture stunning shots with advanced cameras.
+            </div>
+          </div>
+    
+          <!-- Card 3 -->
+          <div class="flex-shrink-0 w-[340px] h-[560px] bg-white rounded-2xl shadow-md relative flex flex-col justify-start p-5">
+            <h4 class="text-gray-600 text-base font-medium">Chip and Battery Life</h4>
+            <p class="text-xl font-semibold my-2">Fast that lasts.</p>
+            <img class="w-full rounded-xl mt-auto" src="../abhijeet-barak-44qLAVHJsco-unsplash.jpg" alt="A18 Pro">
+            <div class="absolute bottom-5 right-5 text-white bg-black/60 w-11 h-11 rounded-full flex items-center justify-center text-2xl cursor-pointer">+</div>
+            <div class="absolute left-0 right-0 bottom-[-100%] h-[40%] bg-gray-500/75 text-white p-5 text-center text-sm transition-all duration-300 hover:bottom-0">
+              Powered by the A18 Pro chip.
+            </div>
+          </div>
+    
+          <!-- Card 4 -->
+          <div class="flex-shrink-0 w-[340px] h-[560px] bg-white rounded-2xl shadow-md relative flex flex-col justify-start p-5">
+            <h4 class="text-gray-600 text-base font-medium">Innovation</h4>
+            <p class="text-xl font-semibold my-2">Beautiful and durable.</p>
+            <img class="w-full rounded-xl mt-auto" src="../pictures/iphone.jpg" alt="Design">
+            <div class="absolute bottom-5 right-5 text-white bg-black/60 w-11 h-11 rounded-full flex items-center justify-center text-2xl cursor-pointer">+</div>
+            <div class="absolute left-0 right-0 bottom-[-100%] h-[40%] bg-gray-500/75 text-white p-5 text-center text-sm transition-all duration-300 hover:bottom-0">
+              Sleek design built to last.
+            </div>
+          </div>
+    
+          <!-- Card 5 -->
+          <div class="flex-shrink-0 w-[340px] h-[560px] bg-white rounded-2xl shadow-md relative flex flex-col justify-start p-5">
+            <h4 class="text-gray-600 text-base font-medium">Environment</h4>
+            <p class="text-xl font-semibold my-2">Recyclable</p>
+            <img class="w-full rounded-xl mt-auto" src="../pictures/iphone.jpg" alt="Environment">
+            <div class="absolute bottom-5 right-5 text-white bg-black/60 w-11 h-11 rounded-full flex items-center justify-center text-2xl cursor-pointer">+</div>
+            <div class="absolute left-0 right-0 bottom-[-100%] h-[40%] bg-gray-500/75 text-white p-5 text-center text-sm transition-all duration-300 hover:bottom-0">
+              Designed with the planet in mind.
+            </div>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"
+        integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"
+        integrity="sha512-P2IDYZfqSwjcSjX0BKeNhwRUH8zRPGlgcWl5n6gBLzdi4Y5/0O4zaXrtO4K9TZK6Hn1BenYpKowuCavNandERg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script src="../script.js"></script>
+
+</body>
+
+</html>
+
