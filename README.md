@@ -1,6 +1,9 @@
+READ THE FUCKING DOCUMENTATION/README file!!!!
+
+place images from the picsss folder in public (seperated with pictures named folder) :)
 
 libs:
-bcrypt, ejs, express, mongoose, JWT, remixicon, cors
+bcrypt, argon2 (best hashing algorithm), ejs, express, mongoose, JWT, remixicon, cors
 
 to run this:
 npx nodemon index.js
