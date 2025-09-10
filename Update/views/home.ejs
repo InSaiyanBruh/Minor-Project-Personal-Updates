@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>India Disaster Management Portal</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+  <style>
+    :root {
+      --header-grad: linear-gradient(302deg, rgba(30,7,179,1) 0%, rgba(0,212,255,1) 100%);
+      --sidebar-grad: linear-gradient(359deg, rgba(30,7,179,1) 0%, rgba(0,212,255,1) 100%);
+      --bg-light: #f4f6f9;
+      --card-bg: #ffffff;
+      --text-dark: #222;
+      --sev-critical: #d32f2f;
+      --sev-high: #ff8f00;
+      --sev-moderate: #f9a825;
+      --sev-low: #388e3c;
+    }
+    html,body{height:100%;margin:0}
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    header {
+      background: var(--header-grad);
+      color: white;
+      padding: 0.8rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      box-shadow: 0 4px 18px rgba(2,6,23,0.12);
+    }
+    .logo {font-size: 1.4rem;font-weight: 700;letter-spacing: 1px;}
+    .menu-btn {position: absolute;left: 1rem;background: none;border: none;color: white;font-size: 1.6rem;cursor: pointer;}
+
+    .sidebar {position: fixed;top: 0;left: -260px;width: 240px;height: 100%;background: var(--sidebar-grad);color: white;transition: left 0.28s ease;padding-top: 3.5rem;z-index: 2000;box-shadow: 0 8px 30px rgba(2,6,23,0.2);}
+    .sidebar.open{left:0}
+    .sidebar ul{list-style:none;padding:0;margin:0}
+    .sidebar li{padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.06);cursor:pointer;font-weight:600}
+    .sidebar li.active{background:rgba(255,255,255,0.08)}
+    .sidebar li:hover{background:rgba(255,255,255,0.06)}
+
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.45);display:none;z-index:1500}
+    .overlay.active{display:block}
+
+    .container{max-width:1200px;margin:18px auto;padding:0 18px}
+
+    .alerts-wrap{margin-top:14px}
+    .alerts-grid{display:flex;gap:12px;flex-wrap:wrap}
+    .alert-card{background:var(--card-bg);border-radius:10px;padding:12px 14px;box-shadow:0 6px 18px rgba(16,24,40,0.06);min-width:220px;flex:0 0 260px;cursor:pointer;display:flex;flex-direction:column;gap:8px;transition:transform 0.2s ease, box-shadow 0.2s ease}
+    .alert-card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(2,6,23,0.15)}
+    .alert-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .alert-title{font-weight:700}
+    .alert-meta{font-size:13px;color:#6b7280}
+    .sev{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:8px}
+    .sev.critical{background:var(--sev-critical)}
+    .sev.high{background:var(--sev-high)}
+    .sev.moderate{background:var(--sev-moderate)}
+    .sev.low{background:var(--sev-low)}
+    .alert-actions{display:flex;gap:8px;margin-top:auto}
+    .btn {padding:8px 10px;border-radius:8px;border:0;font-weight:700;cursor:pointer;transition:background 0.2s ease}
+    .btn.primary{background:#005f73;color:#fff}
+    .btn.primary:hover{background:#024e60}
+    .btn.ghost{background:transparent;border:1px solid #e6eef2;color:#0f172a}
+    .btn.ghost:hover{background:#f1f5f9}
+
+    .ticker {position:fixed;bottom:0;left:0;width:100%;background:#0f172a;color:#fff;padding:10px 14px;font-weight:700;z-index:2500}
+    .ticker .line{white-space:nowrap;overflow:hidden}
+    .ticker .scroll{display:inline-block;padding-left:100%;animation:scroll 18s linear infinite}
+    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+
+    .map-container {position:relative;width:100%;height:400px;}
+    #map { position:absolute; top:0; bottom:0; right:0; left:0; border-radius: 8px; }
+
+    .map-controls {position:absolute; top:10px; right:10px; background:white; padding:6px 8px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2); z-index:1000; font-weight:700;}
+
+    @media(max-width:720px){.alerts-grid{justify-content:center}.alert-card{flex:1 1 100%;min-width:0}.map-container{height:300px}}
+  </style>
+</head>
+<body>
+  <header>
+    <button class="menu-btn" onclick="toggleSidebar()" aria-label="Open menu">☰</button>
+    <div class="logo">INDIA DISASTER</div>
+  </header>
+
+  <nav class="sidebar" id="sidebar" aria-hidden="true">
+    <ul id="menuList">
+      <li data-key="overview" class="active">Overview</li>
+      <li data-key="incidents">Incidents</li>
+      <li data-key="map">Live Map</li>
+      <li data-key="resources">Resources</li>
+      <li data-key="shelters">Shelters</li>
+      <li data-key="volunteers">Volunteers</li>
+      <li data-key="donations">Donations</li>
+      <li data-key="reports">Reports</li>
+    </ul>
+  </nav>
+
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <main class="container">
+    <section class="alerts-wrap" aria-label="Active alerts">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <h3 style="margin:0">Active Alerts</h3>
+        <div class="muted" style="color:#6b7280;font-weight:600">Click an alert to highlight and play animation</div>
+      </div>
+      <div class="alerts-grid" id="alertsGrid"></div>
+    </section>
+
+    <section style="margin-top:18px; background:#fff;border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(16,24,40,0.04)">
+      <h4 style="margin:0 0 8px 0">Live Map</h4>
+      <div class="map-container">
+        <div class="map-controls">
+          <label for="stateSelect" style="font-size:0.85rem;margin-right:6px">Select State:</label>
+          <select id="stateSelect">
+            <option value="India">India</option>
+            <option value="Andhra Pradesh">Andhra Pradesh</option>
+            <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+            <option value="Assam">Assam</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Chhattisgarh">Chhattisgarh</option>
+            <option value="Goa">Goa</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Haryana">Haryana</option>
+            <option value="Himachal Pradesh">Himachal Pradesh</option>
+            <option value="Jharkhand">Jharkhand</option>
+            <option value="Karnataka">Karnataka</option>
+            <option value="Kerala">Kerala</option>
+            <option value="Madhya Pradesh">Madhya Pradesh</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="Manipur">Manipur</option>
+            <option value="Meghalaya">Meghalaya</option>
+            <option value="Mizoram">Mizoram</option>
+            <option value="Nagaland">Nagaland</option>
+            <option value="Odisha">Odisha</option>
+            <option value="Punjab">Punjab</option>
+            <option value="Rajasthan">Rajasthan</option>
+            <option value="Sikkim">Sikkim</option>
+            <option value="Tamil Nadu">Tamil Nadu</option>
+            <option value="Telangana">Telangana</option>
+            <option value="Tripura">Tripura</option>
+            <option value="Uttar Pradesh">Uttar Pradesh</option>
+            <option value="Uttarakhand">Uttarakhand</option>
+            <option value="West Bengal">West Bengal</option>
+            <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+            <option value="Chandigarh">Chandigarh</option>
+            <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+            <option value="Delhi">Delhi (NCT of Delhi)</option>
+            <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+            <option value="Ladakh">Ladakh</option>
+            <option value="Lakshadweep">Lakshadweep</option>
+            <option value="Puducherry">Puducherry</option>
+          </select>
+        </div>
+        <div id="map"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="ticker" id="tickerBar" aria-hidden="false">
+    <div class="line"><span class="scroll" id="tickerText">Loading alerts...</span></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const ALERTS = [
+      {id:1, state:'Punjab', type:'Flood', severity:'Critical', updated:'2025-09-03 10:12', coords:[31.1471,75.3412]},
+      {id:2, state:'Uttarakhand', type:'Landslide', severity:'High', updated:'2025-09-03 09:50', coords:[30.0668,79.0193]},
+      {id:3, state:'Assam', type:'Heavy Rainfall', severity:'Moderate', updated:'2025-09-03 08:40', coords:[26.2006,92.9376]},
+      {id:4, state:'Gujarat', type:'Cyclone Watch', severity:'High', updated:'2025-09-02 22:12', coords:[22.2587,71.1924]}
+    ];
+
+    const alertsGrid = document.getElementById('alertsGrid');
+    const tickerText = document.getElementById('tickerText');
+
+    function sevClass(sev){
+      if(!sev) return 'low';
+      sev = sev.toLowerCase();
+      if(sev.includes('critical')) return 'critical';
+      if(sev.includes('high')) return 'high';
+      if(sev.includes('moderate')) return 'moderate';
+      return 'low';
+    }
+
+    function renderAlerts(){
+      alertsGrid.innerHTML = '';
+      const parts = [];
+      ALERTS.forEach(a=>{
+        parts.push(`${a.state} ${a.type}`);
+        const div = document.createElement('div');
+        div.className = 'alert-card';
+        div.innerHTML = `
+          <div class="alert-header">
+            <div style="display:flex;align-items:center"><span class="sev ${sevClass(a.severity)}"></span><div class="alert-title">${a.type}</div></div>
+            <div class="alert-meta">${a.state}</div>
+          </div>
+          <div class="alert-meta">Updated: ${a.updated}</div>
+          <div class="alert-actions">
+            <button class="btn primary" data-id="${a.id}">Show on map</button>
+            <button class="btn ghost" data-id="${a.id}">Details</button>
+          </div>
+        `;
+        div.querySelector('.btn.primary').addEventListener('click', ()=>{
+          document.querySelectorAll('.alert-card').forEach(c=>c.style.boxShadow='0 6px 18px rgba(16,24,40,0.06)');
+          div.style.boxShadow = '0 10px 36px rgba(2,6,23,0.18)';
+          if(a.coords){ map.flyTo(a.coords, 7, {animate:true,duration:1.5}); }
+        });
+        div.querySelector('.btn.ghost').addEventListener('click', ()=>{
+          alert('Details for ' + a.type + ' in ' + a.state + '\nSeverity: ' + a.severity + '\nUpdated: ' + a.updated);
+        });
+        alertsGrid.appendChild(div);
+      });
+      tickerText.textContent = parts.join('  •  ');
+    }
+
+    const mapContainer = document.getElementById('map');
+    const map = L.map(mapContainer).setView([23.5, 78.5], 5.5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors' }).addTo(map);
+
+    ALERTS.forEach(a=>{ if(a.coords){ L.marker(a.coords).addTo(map).bindPopup(`<b>${a.state}</b><br>${a.type}<br>Severity: ${a.severity}`); }});
+
+    renderAlerts();
+
+    function toggleSidebar(){ document.getElementById('sidebar').classList.toggle('open'); document.getElementById('overlay').classList.toggle('active'); }
+    document.getElementById('menuList').addEventListener('click', (e)=>{ if(e.target.tagName !== 'LI') return; document.querySelectorAll('#menuList li').forEach(li=>li.classList.remove('active')); e.target.classList.add('active'); toggleSidebar(); });
+
+    setInterval(()=>{ ALERTS.push(ALERTS.shift()); renderAlerts(); },60000);
+
+    window.addEventListener('resize', ()=>{ map.invalidateSize(); });
+
+    // Handle state selector
+    document.getElementById('stateSelect').addEventListener('change',(e)=>{
+      const val = e.target.value;
+      if(!val) return;
+      if(val === 'India') { map.flyTo([23.5, 78.5], 5.5, {animate:true,duration:1.5}); return; }
+      const alert = ALERTS.find(a=>a.state===val);
+      if(alert && alert.coords){ map.flyTo(alert.coords, 7, {animate:true,duration:1.5}); }
+    });
+  </script>
+</body>
+</html>

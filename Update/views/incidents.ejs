@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recent Disaster Incidents - India</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    header {
+      background: #003366;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .grid>a {
+      display: flex;
+      width: 80%;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      /* remove underline */
+      color: inherit;
+      /* inherit text color */
+      transition: transform 0.2s;
+    }
+
+    .grid>a:hover {
+      transform: translateY(-5px);
+    }
+
+    .grid>a>.card {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      overflow: hidden;
+      background: white;
+      border-radius: 8px;
+    }
+
+
+    h1,
+    h2 {
+      margin: 10px 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      width: 80%;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: row;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 40%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 15px;
+      width: 60%;
+    }
+
+    .card-body h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #c0392b;
+    }
+
+    .meta {
+      font-size: 14px;
+      color: #555;
+      margin: 5px 0;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #ffe5e5;
+      color: #b30000;
+      font-size: 13px;
+      padding: 5px 10px;
+      border-radius: 15px;
+      margin-top: 8px;
+    }
+
+    .emergency {
+      background: #fff0f0;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 30px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .emergency button {
+      margin: 10px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .red {
+      background: #e74c3c;
+    }
+
+    .blue {
+      background: #3498db;
+    }
+
+    .green {
+      background: #27ae60;
+    }
+
+    .ticker {
+      width: 100%;
+      background: #0f172a;
+      color: #fff;
+      padding: 10px 14px;
+      font-weight: 700;
+      margin-top: 10px;
+      /* adds some spacing below the heading */
+    }
+
+    .ticker .line {
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .ticker .scroll {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll 18s linear infinite;
+    }
+
+    @keyframes scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-100%);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Recent Disaster Incidents in India</h1>
+  </header>
+
+  <div class="ticker" id="tickerBar" aria-hidden="false">
+    <div class="line"><span class="scroll" id="tickerText">Loading alerts...</span></div>
+  </div>
+
+  <div class="container">
+    <h2>Latest Reports</h2>
+    <div class="grid">
+      <a href="http://localhost:3000/RecentDisaster1">
+        <div class="card">
+          <img src="https://resize.indiatvnews.com/en/resize/newbucket/1200_-/2025/08/kishtwar-1755190094.webp"
+            alt="Chositi Flash Flood">
+          <div class="card-body">
+            <h3>Flash Flood in Chositi, Kishtwar</h3>
+            <p class="meta">📍 Chositi, Kishtwar (Jammu & Kashmir) | 📅 14 August 2025</p>
+            <p>A sudden cloudburst caused flash floods that killed over 65 people, injured hundreds, and left many
+              missing.</p>
+            <span class="badge">Flash Flood</span>
+          </div>
+        </div>
+      </a>
+
+      <div class="card">
+        <img
+          src="https://i.guim.co.uk/img/media/cdbe219c28be628f72d22e3e7d112ddd82ba1213/0_0_5760_3840/master/5760.jpg?width=620&dpr=1&s=none&crop=none"
+          alt="Punjab Floods">
+        <div class="card-body">
+          <h3>Severe Floods in Punjab</h3>
+          <p class="meta">📍 Punjab | 📅 20 August 2025</p>
+          <p>Monsoon floods affected over 1,400 villages and 3.5 million residents, with more than 30 fatalities.</p>
+          <span class="badge">Flood</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202508/flash-flood-060443745-16x9_2.jpg?VersionId=ChZUWKZCA_nEyVlD2hXm5YTa0Xuh0Iq_&size=690:388"
+          alt="Uttarakhand Flash Flood">
+        <div class="card-body">
+          <h3>Flash Flood in Uttarkashi (Dharali)</h3>
+          <p class="meta">📍 Dharali, Uttarkashi (Uttarakhand) | 📅 7 August 2025</p>
+          <p>A sudden flash flood, possibly due to a cloudburst, resulted in at least 5 deaths and many missing.</p>
+          <span class="badge">Flash Flood</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://media.newindianexpress.com/newindianexpress%2F2025-02-28%2Fnbly9so5%2FWhatsApp-Image-2025-02-28-at-4.30.04-PM.jpeg?w=768&auto=format%2Ccompress&fit=max"
+          alt="Uttarakhand Avalanche">
+        <div class="card-body">
+          <h3>Avalanche at Mana Camp</h3>
+          <p class="meta">📍 Mana, Chamoli (Uttarakhand) | 📅 28 February 2025</p>
+          <p>An avalanche struck a BRO construction camp, burying workers and resulting in 8 fatalities.</p>
+          <span class="badge">Avalanche</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="emergency">
+      <h2>🚨 Need Help Right Away?</h2>
+      <button class="red">🚑 Call Ambulance</button>
+      <button class="blue">📞 Police Helpline</button>
+      <button class="green">🏥 Find Hospital</button>
+    </div>
+  </div>
+
+  <script>
+    const ALERTS = [
+      { id: 1, state: 'Punjab', type: 'Flood' },
+      { id: 2, state: 'Uttarakhand', type: 'Landslide' },
+      { id: 3, state: 'Assam', type: 'Heavy Rainfall' },
+      { id: 4, state: 'Gujarat', type: 'Cyclone Watch' }
+    ];
+
+    const tickerText = document.getElementById('tickerText');
+
+    function updateTicker() {
+      const parts = ALERTS.map(a => `${a.state} ${a.type}`);
+      tickerText.textContent = parts.join('  •  ');
+    }
+
+    updateTicker();
+
+    // Optionally rotate alerts every 60 seconds
+    setInterval(() => {
+      ALERTS.push(ALERTS.shift());
+      updateTicker();
+    }, 60000);
+  </script>
+
+
+</body>
+
+</html>
